@@ -1,0 +1,488 @@
+{
+    "openapi": "3.0.2",
+    "info":
+    {
+        "title": "BigProfiles API Frontend Test",
+        "description": "# Introduction\nQueste API sono state sviluppate da BigProfiles per il test tecnico FrontEnd. E' vietato il riutilizzo o la riproduzione di esse\nPer quanto riguarda l'autenticazione usare il parametro `x-api-key` all'interno dell'header ed impostare come valore `BigProfiles-API`",
+        "version": "1.0.0",
+        "x-logo":
+        {
+            "url": "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+PCEtLSBHZW5lcmF0b3I6IEdyYXZpdC5pbyAtLT48c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHN0eWxlPSJpc29sYXRpb246aXNvbGF0ZSIgdmlld0JveD0iMCAwIDk0LjM3NSA5MS4xNjIiIHdpZHRoPSI5NC4zNzVwdCIgaGVpZ2h0PSI5MS4xNjJwdCI+PGRlZnM+PGNsaXBQYXRoIGlkPSJfY2xpcFBhdGhfbE1BbG5mWkdYV2dJek5Jek1TZFdhU2k0cG9NOHozWXkiPjxyZWN0IHdpZHRoPSI5NC4zNzUiIGhlaWdodD0iOTEuMTYyIi8+PC9jbGlwUGF0aD48L2RlZnM+PGcgY2xpcC1wYXRoPSJ1cmwoI19jbGlwUGF0aF9sTUFsbmZaR1hXZ0l6Tkl6TVNkV2FTaTRwb004ejNZeSkiPjxnPjxnPjxwYXRoIGQ9IiBNIDQ5LjIwNiA4Ny4wNSBDIDQ4LjIyNCA3Ni41MiA0Ny42NjcgNjUuOTc5IDQ4LjE0OCA1NS40MTIgQyA0OC4zNTYgNTAuODQzIDQ4LjY5IDQ2LjI3NSA1MC4wMjUgNDEuODYzIEMgNTIuODgyIDMyLjQyNSA1OC44OTIgMjYuMDY1IDY4LjQ4MSAyMy40MDYgQyA3OC4zMjQgMjAuNjc2IDg4LjQzOSAyNy4zNTcgODkuOTI0IDM3LjQzNiBDIDkxLjI2OCA0Ni41NTcgODUuNTE5IDU0LjgzNiA3Ni40MzIgNTYuOTE3IEMgNzMuMjQ0IDU3LjY0NyA3MC4wNTMgNTguMzc3IDY2LjkwOSA1OS4yNjYgQyA2NC42NTEgNTkuOTA1IDYyLjYgNjEuMDY0IDYwLjYzNCA2Mi4zNjQgQyA1Ny45NCA2NC4xNDYgNTUuOTU0IDY2LjQ3OSA1NC42NDEgNjkuNDQzIEMgNTIuNTQyIDc0LjE4MiA1MS4xMzMgNzkuMTM1IDQ5Ljg5IDg0LjE0NSBDIDQ5LjY1IDg1LjExMSA0OS40MzMgODYuMDgxIDQ5LjIwNiA4Ny4wNSBaICIgZmlsbC1ydWxlPSJldmVub2RkIiBmaWxsPSJyZ2IoMCw5NywxNjUpIi8+PHBhdGggZD0iIE0gNDQuNzg4IDY2LjU5MiBDIDQ0LjA4OSA2NS42NDQgNDMuNTA4IDY0Ljc0OSA0Mi44MjEgNjMuOTQ2IEMgNDEuNjI1IDYyLjU0NyA0MC40MzEgNjEuMTM1IDM5LjExNiA1OS44NTIgQyAzNi4wNDkgNTYuODYxIDMyLjI0IDU1LjQyMSAyOC4wNDMgNTUuMTc0IEMgMjUuMzU0IDU1LjAxNiAyMi42MjggNTUuMTM0IDE5LjkzOSA1NS4zNzEgQyAxMi44ODUgNTUuOTkzIDYuNTg5IDUxLjc3MiA0Ljc0OSA0NS4wNDIgQyAyLjM1MSAzNi4yNzMgOS4wMjQgMjcuNDE4IDE4LjExNSAyNy40MjYgQyAyNi41OTMgMjcuNDM0IDMyLjgxOCAzMS40MTcgMzcuMDQ5IDM4LjYyNiBDIDM5LjU0MyA0Mi44NzYgNDAuOTkgNDcuNTQ5IDQyLjIyNCA1Mi4yODggQyA0My40MTcgNTYuODcxIDQ0LjIzNyA2MS41MjQgNDQuNzg2IDY2LjIyNiBDIDQ0Ljc5NiA2Ni4zMDYgNDQuNzg4IDY2LjM4OCA0NC43ODggNjYuNTkyIFogIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGZpbGw9InJnYigwLDk3LDE2NSkiLz48cGF0aCBkPSIgTSA0NS44NjMgNTEuMjMgQyA0NS4zODYgNDkuNjc2IDQ0Ljk0NiA0OC4xMSA0NC40MjcgNDYuNTcgQyA0My4wNzMgNDIuNTQ4IDQxLjQyOSAzOC42NTMgMzguOTI1IDM1LjE5NSBDIDM2LjA5MiAzMS4yODQgMzIuMjk1IDI4LjQ4OSAyOC4xMzYgMjYuMTM3IEMgMjUuMDYyIDI0LjQgMjMuMDE4IDIxLjgzMSAyMi4zMTQgMTguMzU4IEMgMjEuMzY4IDEzLjY4NiAyMi43NDggOS43MDUgMjYuNDc1IDYuNzQyIEMgMzAuMjU2IDMuNzM3IDM0LjUzNCAzLjM0MSAzOC44NjIgNS4zODEgQyA0My41MSA3LjU3MiA0Ni4wODggMTEuMjYyIDQ2LjA2NSAxNi41NTUgQyA0Ni4wMTUgMjcuOTEzIDQ1Ljk3NCAzOS4yNyA0NS45MzEgNTAuNjI4IEMgNDUuOTI5IDUwLjgyNyA0NS45MzEgNTEuMDI2IDQ1LjkzMSA1MS4yMjUgQyA0NS45MDggNTEuMjI3IDQ1Ljg4NSA1MS4yMjggNDUuODYzIDUxLjIzIEwgNDUuODYzIDUxLjIzIFogIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGZpbGw9InJnYigwLDk3LDE2NSkiLz48cGF0aCBkPSIgTSA1Ny40MSA0LjE5MiBDIDYyLjAwNiA0LjE5NyA2NS43MzQgNy45MzQgNjUuNzMgMTIuNTM0IEMgNjUuNzI2IDE3LjEzIDYxLjk5IDIwLjg1NyA1Ny4zODkgMjAuODU0IEMgNTIuNzk0IDIwLjg1MSA0OS4wNjQgMTcuMTEyIDQ5LjA2OSAxMi41MTMgQyA0OS4wNzMgNy45MTYgNTIuODExIDQuMTg4IDU3LjQxIDQuMTkyIFogIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGZpbGw9InJnYigwLDk3LDE2NSkiLz48L2c+PC9nPjwvZz48L3N2Zz4="
+        }
+    },
+    "paths":
+    {
+        "/api/v1/ingest":
+        {
+            "post":
+            {
+                "tags":
+                [
+                    "ingest"
+                ],
+                "summary": "Ingest",
+                "description": "Endpoint che permette di andare ad inserire i dati all'interno del sistema. <br />La risposta contiene un messaggio (non interessante) ed un codice (lo stesso che poi viene usato come HTTP_STATUS_CODE).<br />Il codice di risposta è randomico: il **10%** delle risposte hanno un codice 500, le restanti 200.<br />Anche il tempo di risposta è randomico: infatti le risposte possono variare tra **10 ms** e **50 ms** (+-10% di precisione)",
+                "operationId": "ingest_api_v1_ingest_post",
+                "requestBody":
+                {
+                    "content":
+                    {
+                        "application/json":
+                        {
+                            "schema":
+                            {
+                                "$ref": "#/components/schemas/EnrichInputModel"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses":
+                {
+                    "200":
+                    {
+                        "description": "La richiesta ha riportato un codice 200",
+                        "content":
+                        {
+                            "application/json":
+                            {
+                                "schema":
+                                {
+                                    "$ref": "#/components/schemas/MessageOutputModel"
+                                },
+                                "example":
+                                {
+                                    "status_code": 200,
+                                    "message": "Ingestion Complete"
+                                }
+                            }
+                        }
+                    },
+                    "500":
+                    {
+                        "description": "La richiesta ha riportato un codice 500",
+                        "content":
+                        {
+                            "application/json":
+                            {
+                                "schema":
+                                {
+                                    "$ref": "#/components/schemas/MessageOutputModel"
+                                },
+                                "example":
+                                {
+                                    "status_code": 500,
+                                    "message": "Ingestion Complete"
+                                }
+                            }
+                        }
+                    },
+                    "422":
+                    {
+                        "description": "Validation Error",
+                        "content":
+                        {
+                            "application/json":
+                            {
+                                "schema":
+                                {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security":
+                [
+                    {
+                        "APIKeyHeader":
+                        []
+                    }
+                ]
+            }
+        },
+        "/api/v1/retrieve":
+        {
+            "get":
+            {
+                "tags":
+                [
+                    "retrieve"
+                ],
+                "summary": "Retrieve",
+                "description": "Endpoint che permette di andare ad estrarre i valori aggregati per minuto. <br />La risposta contiene la lista dei valori aggregati per minuto con le varie informazioni necessarire; inoltre vengono mandati gli ultimi 10 log in ordine temporale inverso (dal più recente al meno) dell'ultima aggregazione della selezione scelta.<br />E' possibile andare a cambiare il range temporale scelto.<br />",
+                "operationId": "retrieve_api_v1_retrieve_get",
+                "parameters":
+                [
+                    {
+                        "description": "Data di inizioe della finestra temporale scelta, deve essere in formato ISO",
+                        "required": true,
+                        "schema":
+                        {
+                            "title": "Date From",
+                            "type": "string",
+                            "description": "Data di inizioe della finestra temporale scelta, deve essere in formato ISO",
+                            "format": "date-time",
+                            "example": "2021-07-28 13:25:00.000Z"
+                        },
+                        "name": "date_from",
+                        "in": "query"
+                    },
+                    {
+                        "description": "Data di fine della finestra temporale scelta, deve essere in formato ISO",
+                        "required": true,
+                        "schema":
+                        {
+                            "title": "Date To",
+                            "type": "string",
+                            "description": "Data di fine della finestra temporale scelta, deve essere in formato ISO",
+                            "format": "date-time",
+                            "example": "2021-07-28 13:50:00.000Z"
+                        },
+                        "name": "date_to",
+                        "in": "query"
+                    }
+                ],
+                "responses":
+                {
+                    "200":
+                    {
+                        "description": "Response",
+                        "content":
+                        {
+                            "application/json":
+                            {
+                                "schema":
+                                {
+                                    "$ref": "#/components/schemas/ResultModel"
+                                },
+                                "example":
+                                {
+                                    "values":
+                                    [
+                                        {
+                                            "key": 1,
+                                            "creation_datetime": "2021-07-18T10:40:00",
+                                            "total_response_time_ms": 1234,
+                                            "total_requests": 20,
+                                            "total_errors": 2
+                                        },
+                                        {
+                                            "key": 2,
+                                            "creation_datetime": "2021-07-18T10:41:00",
+                                            "total_response_time_ms": 44,
+                                            "total_requests": 2,
+                                            "total_errors": 0
+                                        },
+                                        {
+                                            "key": 3,
+                                            "creation_datetime": "2021-07-18T10:41:00",
+                                            "total_response_time_ms": 24,
+                                            "total_requests": 2,
+                                            "total_errors": 0
+                                        }
+                                    ],
+                                    "logs":
+                                    [
+                                        {
+                                            "key": 3,
+                                            "payload": "Stringa di prova",
+                                            "creation_datetime": "2021-07-18T10:41:45",
+                                            "response_time": 14,
+                                            "response_code": 200
+                                        },
+                                        {
+                                            "key": 2,
+                                            "payload": "Stringa di prova",
+                                            "creation_datetime": "2021-07-18T10:41:34",
+                                            "response_time": 24,
+                                            "response_code": 200
+                                        },
+                                        {
+                                            "key": 3,
+                                            "payload": "Stringa di prova",
+                                            "creation_datetime": "2021-07-18T10:41:24",
+                                            "response_time": 10,
+                                            "response_code": 200
+                                        },
+                                        {
+                                            "key": 2,
+                                            "payload": "Stringa di prova",
+                                            "creation_datetime": "2021-07-18T10:41:10",
+                                            "response_time": 20,
+                                            "response_code": 200
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "422":
+                    {
+                        "description": "Validation Error",
+                        "content":
+                        {
+                            "application/json":
+                            {
+                                "schema":
+                                {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security":
+                [
+                    {
+                        "APIKeyHeader":
+                        []
+                    }
+                ]
+            }
+        }
+    },
+    "components":
+    {
+        "schemas":
+        {
+            "EnrichInputModel":
+            {
+                "title": "EnrichInputModel",
+                "required":
+                [
+                    "key",
+                    "payload"
+                ],
+                "type": "object",
+                "properties":
+                {
+                    "key":
+                    {
+                        "title": "Key",
+                        "maximum": 6.0,
+                        "minimum": 1.0,
+                        "type": "integer",
+                        "description": "Id della richiesta (deve essere un numero tra 1 e 6)",
+                        "example": 2
+                    },
+                    "payload":
+                    {
+                        "title": "Payload",
+                        "maxLength": 255,
+                        "minLength": 10,
+                        "type": "string",
+                        "description": "Payload della richiesta (una stringa da 10 a 255 caratteri)",
+                        "example": "Stringa di esempio"
+                    }
+                }
+            },
+            "EnrichModel":
+            {
+                "title": "EnrichModel",
+                "required":
+                [
+                    "key",
+                    "creation_datetime",
+                    "total_response_time_ms",
+                    "total_requests",
+                    "total_errors"
+                ],
+                "type": "object",
+                "properties":
+                {
+                    "key":
+                    {
+                        "title": "Key",
+                        "type": "integer",
+                        "description": "Key of the record"
+                    },
+                    "creation_datetime":
+                    {
+                        "title": "Creation Datetime",
+                        "type": "string",
+                        "description": "Data di creazione del log aggregato",
+                        "format": "date-time"
+                    },
+                    "total_response_time_ms":
+                    {
+                        "title": "Total Response Time Ms",
+                        "type": "integer",
+                        "description": "Tempo totale in millisecondi di tutte le risposte inviate nel log aggregato"
+                    },
+                    "total_requests":
+                    {
+                        "title": "Total Requests",
+                        "type": "integer",
+                        "description": "Numero totale di tutte le risposte inviate nel log aggregato"
+                    },
+                    "total_errors":
+                    {
+                        "title": "Total Errors",
+                        "type": "integer",
+                        "description": "Numero totale di tutte le risposte con un "
+                    }
+                }
+            },
+            "Entry":
+            {
+                "title": "Entry",
+                "required":
+                [
+                    "key",
+                    "payload",
+                    "creation_datetime",
+                    "response_time",
+                    "response_code"
+                ],
+                "type": "object",
+                "properties":
+                {
+                    "key":
+                    {
+                        "title": "Key",
+                        "type": "integer"
+                    },
+                    "payload":
+                    {
+                        "title": "Payload",
+                        "type": "string"
+                    },
+                    "creation_datetime":
+                    {
+                        "title": "Creation Datetime",
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "response_time":
+                    {
+                        "title": "Response Time",
+                        "type": "integer"
+                    },
+                    "response_code":
+                    {
+                        "title": "Response Code",
+                        "type": "integer"
+                    }
+                }
+            },
+            "HTTPValidationError":
+            {
+                "title": "HTTPValidationError",
+                "type": "object",
+                "properties":
+                {
+                    "detail":
+                    {
+                        "title": "Detail",
+                        "type": "array",
+                        "items":
+                        {
+                            "$ref": "#/components/schemas/ValidationError"
+                        }
+                    }
+                }
+            },
+            "MessageOutputModel":
+            {
+                "title": "MessageOutputModel",
+                "required":
+                [
+                    "status_code",
+                    "message"
+                ],
+                "type": "object",
+                "properties":
+                {
+                    "status_code":
+                    {
+                        "title": "Status Code",
+                        "type": "integer",
+                        "description": "Status code (numeric)",
+                        "example": 200
+                    },
+                    "message":
+                    {
+                        "title": "Message",
+                        "type": "string",
+                        "description": "Human readable message for understanding",
+                        "example": "Ingestion Complete"
+                    }
+                }
+            },
+            "ResultModel":
+            {
+                "title": "ResultModel",
+                "required":
+                [
+                    "values",
+                    "logs"
+                ],
+                "type": "object",
+                "properties":
+                {
+                    "values":
+                    {
+                        "title": "Values",
+                        "type": "array",
+                        "items":
+                        {
+                            "$ref": "#/components/schemas/EnrichModel"
+                        }
+                    },
+                    "logs":
+                    {
+                        "title": "Logs",
+                        "type": "array",
+                        "items":
+                        {
+                            "$ref": "#/components/schemas/Entry"
+                        }
+                    }
+                }
+            },
+            "ValidationError":
+            {
+                "title": "ValidationError",
+                "required":
+                [
+                    "loc",
+                    "msg",
+                    "type"
+                ],
+                "type": "object",
+                "properties":
+                {
+                    "loc":
+                    {
+                        "title": "Location",
+                        "type": "array",
+                        "items":
+                        {
+                            "type": "string"
+                        }
+                    },
+                    "msg":
+                    {
+                        "title": "Message",
+                        "type": "string"
+                    },
+                    "type":
+                    {
+                        "title": "Error Type",
+                        "type": "string"
+                    }
+                }
+            }
+        },
+        "securitySchemes":
+        {
+            "APIKeyHeader":
+            {
+                "type": "apiKey",
+                "in": "header",
+                "name": "x-api-key"
+            }
+        }
+    }
+}
