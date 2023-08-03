@@ -1,13 +1,59 @@
 version: "3"
 
 services:
+
+  dozzle:  
+      image: amir20/dozzle:v3.10.1
+      network_mode: host
+      restart: always
+
+      volumes:
+        - /var/run/docker.sock:/var/run/docker.sock
+
+      environment:
+        DOZZLE_ADDR: "0.0.0.0:9000"
+        DOZZLE_USERNAME: ""
+        DOZZLE_PASSWORD: ""
+  
   mongo:
     image: "mongo:4.0.24-xenial"
+
+    restart: always
+    network_mode: host
+    volumes:
+      - ../data/mongo/data:/data/db 
+    environment: 
+      MONGO_INITDB_ROOT_USERNAME: ""
+      MONGO_INITDB_ROOT_PASSWORD: ""
+
+
+  mongo_express:
+    image: mongo-express:1.0.0-alpha.4
+    restart: always
+    network_mode: host
+
+    depends_on:
+      - "mongo"    
+
+    environment:
+      ME_CONFIG_MONGODB_ENABLE_ADMIN: "true"
+      ME_CONFIG_MONGODB_SERVER: "localhost"
+      ME_CONFIG_MONGODB_ADMINUSERNAME: ""
+      ME_CONFIG_MONGODB_ADMINPASSWORD: ""
+      ME_CONFIG_BASICAUTH_USERNAME: ""
+      ME_CONFIG_BASICAUTH_PASSWORD: ""
   
   backend:
     environment:
       - MONGODB_URL=mongodb://mongo:27017
     image: backend
-    build: backend
+    build:
+      context: .
+      dockerfile: Dockerfile
     ports:
       - "8000:8000"
+
+    volumes:
+      - .:/backend
+
+    command: "gunicorn --log-level INFO -b 0.0.0.0:8000 -w 1 -k uvicorn.workers.UvicornWorker backend.main:app"
