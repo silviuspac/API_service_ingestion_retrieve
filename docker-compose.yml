@@ -2,6 +2,7 @@ version: "3"
 
 services:
 
+  # Interface to se logs from the other docker
   dozzle:  
       image: amir20/dozzle:v3.10.1
       network_mode: host
@@ -17,29 +18,41 @@ services:
   
   mongo:
     image: "mongo:4.0.24-xenial"
+    container_name: mongo
 
-    restart: always
-    network_mode: host
     volumes:
-      - ../data/mongo/data:/data/db 
+      - ./data/mongo:/data/db
+    
+    ports:
+      - "27017:27017"
+
+    env_file:
+      - .env
+
     environment: 
-      MONGO_INITDB_ROOT_USERNAME: ""
-      MONGO_INITDB_ROOT_PASSWORD: ""
+      MONGO_INITDB_ROOT_USERNAME: "root"
+      MONGO_INITDB_ROOT_PASSWORD: "password"
+    
+    command:
+      mongod
 
 
   mongo_express:
-    image: mongo-express:1.0.0-alpha.4
+    image: mongo-express
     restart: always
-    network_mode: host
+
+    ports:
+      - "8081:8081"
 
     depends_on:
-      - "mongo"    
+      - "mongo"
+    links:
+      - mongo    
 
     environment:
-      ME_CONFIG_MONGODB_ENABLE_ADMIN: "true"
-      ME_CONFIG_MONGODB_SERVER: "localhost"
-      ME_CONFIG_MONGODB_ADMINUSERNAME: ""
-      ME_CONFIG_MONGODB_ADMINPASSWORD: ""
+      ME_CONFIG_MONGODB_ADMINUSERNAME: "root"
+      ME_CONFIG_MONGODB_ADMINPASSWORD: "password"
+      ME_CONFIG_MONGODB_URL: mongodb://root:password@mongo:27017/?authSource=admin
       ME_CONFIG_BASICAUTH_USERNAME: ""
       ME_CONFIG_BASICAUTH_PASSWORD: ""
   
@@ -56,4 +69,9 @@ services:
     volumes:
       - .:/backend
 
-    command: "gunicorn --log-level INFO -b 0.0.0.0:8000 -w 1 -k uvicorn.workers.UvicornWorker backend.main:app"
+    command: "gunicorn --log-level INFO -b 0.0.0.0:8000 -w 1 -k uvicorn.workers.UvicornWorker backend.main:app --access-logfile '-'"
+
+    depends_on:
+      - mongo
+    links:
+      - mongo 
