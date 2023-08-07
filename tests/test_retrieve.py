@@ -9,8 +9,8 @@ class Ingest(Thread):
         # time.sleep(0.1)
         # t1 = time.time()
         n_calls = 1000
+        t1 = time.time()
         for i in range(n_calls):
-            t1 = time.time()
             new_data = {
                 "date_from": "2023-08-06 13:50:00.000Z",
                 "date_to": "2023-08-09 13:50:00.000Z"
@@ -19,11 +19,11 @@ class Ingest(Thread):
             get_response = requests.get(url_get, params=new_data, headers=header)
             # get_response_json = get_response.json()
             # print(get_response_json)
-            t2 = time.time()
-            tot_time = (t2 - t1)
-            calls_per_second = 1 / tot_time
+        t2 = time.time()
+        tot_time = (t2 - t1)
+        calls_per_second = n_calls / tot_time
 
-            print(tot_time, calls_per_second)
+        print(tot_time, calls_per_second)
 
 
 
