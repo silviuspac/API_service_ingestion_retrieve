@@ -15,6 +15,8 @@ Then, go to the project folder and start the service:
 This bash script calls docker-compose that buids the dockers (with the libraries from the requirements.txt) and starts them. <br />
 Now the application is running on the localhost and listening on port 8000.
 
+If the user wants to change global variables, the .env file can be modified.
+
 To stop the application:
 
     ./bin/stop.sh
@@ -66,6 +68,10 @@ For the security of the APIs calls the header of both APIs has the parameter "x-
 * [Docker](https://www.docker.com/) This is a software platform that allows you to build, test, and deploy applications quickly.
 
 * [Docker Compose](https://docs.docker.com/compose/) This is a tool for defining and running multi-container Docker applications.
+
+* [Dozzle](https://dozzle.dev/) This is a lightweight, web-based Docker log viewer that provides real-time monitoring and easy troubleshooting.
+
+* [Mongo Express](https://github.com/mongo-express/mongo-express) This is a web-based MongoDB admin interface
 
 # Tests
 In the test folder, some unit tests are proposed to assess the behaviour of the APIs, to run them:
