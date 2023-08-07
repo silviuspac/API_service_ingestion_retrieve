@@ -26,9 +26,11 @@ class MongoDatabase():
         self.mongo_database = self.mongo_client[db_name]
         self.mongo_collections = { collection: self.mongo_database.get_collection(collection), }
 
+        self.collection = collection
+
         # Create a single-field index on the "creation_datetime" field
         # To speedup queries
-        self.mongo_collections["apis"].create_index("creation_datetime", background=True)
+        self.mongo_collections[collection].create_index("creation_datetime", background=True)
 
         # Define async queue used for bulk_write
         self.entry_queue = asyncio.Queue(1000)
@@ -49,7 +51,7 @@ class MongoDatabase():
         '''
         
         bulk_operations = [InsertOne(entry) for entry in entries]
-        await self.mongo_collections["apis"].bulk_write(bulk_operations, ordered=False)
+        await self.mongo_collections[self.collection].bulk_write(bulk_operations, ordered=False)
         
 
 

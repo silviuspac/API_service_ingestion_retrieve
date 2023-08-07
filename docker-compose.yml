@@ -31,8 +31,8 @@ services:
       - .env
 
     environment: 
-      MONGO_INITDB_ROOT_USERNAME: "root"
-      MONGO_INITDB_ROOT_PASSWORD: "password"
+      MONGO_INITDB_ROOT_USERNAME: $MONGO_USER
+      MONGO_INITDB_ROOT_PASSWORD: $MONGO_PASS
     
     command:
       mongod
@@ -51,9 +51,9 @@ services:
       - mongo    
 
     environment:
-      ME_CONFIG_MONGODB_ADMINUSERNAME: "root"
-      ME_CONFIG_MONGODB_ADMINPASSWORD: "password"
-      ME_CONFIG_MONGODB_URL: mongodb://root:password@mongo:27017/?authSource=admin
+      ME_CONFIG_MONGODB_ADMINUSERNAME: $MONGO_USER
+      ME_CONFIG_MONGODB_ADMINPASSWORD: $MONGO_PASS
+      ME_CONFIG_MONGODB_URL: $MONGO_URL
       ME_CONFIG_BASICAUTH_USERNAME: ""
       ME_CONFIG_BASICAUTH_PASSWORD: ""
   

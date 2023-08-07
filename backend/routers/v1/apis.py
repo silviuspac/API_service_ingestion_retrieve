@@ -104,7 +104,7 @@ async def retrieve(date_from: str, date_to: str, x_api_key: str = Security(get_a
         }
     ]
 
-    aggregation_result = await main.app.state.mongo_database.mongo_collections["apis"].aggregate(pipeline, allowDiskUse=True).to_list(None)
+    aggregation_result = await main.app.state.mongo_database.mongo_collections[main.app.state.mongo_database.collection].aggregate(pipeline, allowDiskUse=True).to_list(None)
     result_model = ResultModel()
 
     # Get aggregation data
@@ -116,7 +116,7 @@ async def retrieve(date_from: str, date_to: str, x_api_key: str = Security(get_a
     
     # Get the max last 10 items from the last aggregation period
     last_timestamp = aggregation_result[0]["creation_datetime"]+"Z"
-    last_10_items = await main.app.state.mongo_database.mongo_collections["apis"].find(
+    last_10_items = await main.app.state.mongo_database.mongo_collections[main.app.state.mongo_database.collection].find(
         {
             "creation_datetime": {"$gte": last_timestamp, "$lte": date_to},
         }
