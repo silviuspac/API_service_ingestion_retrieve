@@ -1,3 +1,7 @@
 fastapi
+motor
 gunicorn
 uvicorn
+pymongo
+requests
+ujson

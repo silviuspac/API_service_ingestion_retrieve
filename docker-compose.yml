@@ -16,6 +16,7 @@ services:
         DOZZLE_USERNAME: ""
         DOZZLE_PASSWORD: ""
   
+  # mongodb
   mongo:
     image: "mongo:4.0.24-xenial"
     container_name: mongo
@@ -36,7 +37,7 @@ services:
     command:
       mongod
 
-
+  # mongodb web interface
   mongo_express:
     image: mongo-express
     restart: always
