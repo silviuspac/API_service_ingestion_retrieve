@@ -1,5 +1,4 @@
 from fastapi import FastAPI
-from fastapi.logger import logger as fastapi_logger
 from backend.database import init_mongodb, get_mongo_meta
 from backend.routers.v1.apis import router as v1
 import asyncio

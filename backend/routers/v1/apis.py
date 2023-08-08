@@ -6,8 +6,6 @@ from pydantic import ValidationError
 import backend.main as main
 from datetime import datetime
 import random
-import time
-from collections import deque
 
 import logging
 logger = logging.getLogger("gunicorn.error")

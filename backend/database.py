@@ -2,14 +2,10 @@ from motor.motor_asyncio import AsyncIOMotorClient
 import motor
 import ujson
 import backend.main as main
-from queue import Queue
 from backend.components.schemas import Entry
 from typing import List
-import time
 import asyncio
-from contextlib import suppress
-from pymongo import MongoClient, InsertOne
-from fastapi.encoders import jsonable_encoder
+from pymongo import InsertOne
 
 import logging
 logger = logging.getLogger("gunicorn.error")
