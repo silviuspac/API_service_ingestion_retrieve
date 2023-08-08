@@ -5,11 +5,11 @@ REST API projet that uses FastAPI, MongoDB, Motor (the async Python driver for M
 
 First, clone this repository:
 
-    git clone git@github.com:silviuspac/test_tecnico_BigProfiles.git
+    git clone git@github.com:silviuspac/API_service_ingestion_retrieve.git
 
 Then, go to the project folder and start the service:
 
-    cd test_tecnico_BigProfiles
+    cd API_service_ingestion_retrieve
     ./bin/start.sh
 
 This bash script calls docker-compose that buids the dockers (with the libraries from the requirements.txt) and starts them. <br />
