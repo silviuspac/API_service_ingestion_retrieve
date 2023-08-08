@@ -15,7 +15,7 @@ Then, go to the project folder and start the service:
 This bash script calls docker-compose that buids the dockers (with the libraries from the requirements.txt) and starts them. <br />
 Now the application is running on the localhost and listening on port 8000.
 
-Once started the containers logs are at http://127.0.0.1:9000 and manage the dataset at http://127.0.0.1:8081
+Once started the containers logs can be seen http://127.0.0.1:9000 and dataset can be managed at http://127.0.0.1:8081.
 
 If the user wants to change global variables, the .env file can be modified. For the use of this project admin username and password are note setted.
 
