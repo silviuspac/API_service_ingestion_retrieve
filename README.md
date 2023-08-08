@@ -15,11 +15,14 @@ Then, go to the project folder and start the service:
 This bash script calls docker-compose that buids the dockers (with the libraries from the requirements.txt) and starts them. <br />
 Now the application is running on the localhost and listening on port 8000.
 
+Once started the containers logs are at http://127.0.0.1:9000 and manage the dataset at http://127.0.0.1:8081
+
 If the user wants to change global variables, the .env file can be modified. For the use of this project admin username and password are note setted.
 
 To stop the application:
 
     ./bin/stop.sh
+
 
 # APIs
 The project implements two APIs:
@@ -76,8 +79,11 @@ For the security of the APIs calls the header of both APIs has the parameter "x-
 * [Mongo Express](https://github.com/mongo-express/mongo-express) This is a web-based MongoDB admin interface
 
 # Tests
-In the test folder, some unit tests are proposed to assess the behaviour of the APIs, to run them:
+In the test folder, some unit tests are proposed to assess the behaviour of the APIs, to run them we need to create first a virtualenv and install the requirements from test_requirements.txt:
 
+    python3 -m venv venv
+    . venv/bin/activate
+    pip install -r test_requirements.txt
     python tests/tests.py
 
 In the same folder, also two other files can be found. In those, API calls in multithreading enviroment are called in order to test the performance of the application. 
