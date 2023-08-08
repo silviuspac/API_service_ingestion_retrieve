@@ -61,7 +61,7 @@ async def retrieve(date_from: str, date_to: str, x_api_key: str = Security(get_a
             "$match": {
                 "creation_datetime": {
                     "$gte": date_from,
-                    "$lt": date_to
+                    "$lte": date_to
                 }
             }
         },
