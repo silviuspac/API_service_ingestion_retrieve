@@ -120,7 +120,7 @@ async def retrieve(date_from: str, date_to: str, x_api_key: str = Security(get_a
         {
             "creation_datetime": {"$gte": last_timestamp, "$lte": date_to},
         }
-    ).sort("creation_datetime", 1).limit(10).to_list(None)
+    ).sort("creation_datetime", -1).limit(10).to_list(None)
 
     for item in last_10_items:
         result_model.logs.append(Entry(key=item["key"], payload=item["payload"], creation_datetime=item["creation_datetime"], response_time=item["response_time"], response_code=item["response_code"]).dict())
