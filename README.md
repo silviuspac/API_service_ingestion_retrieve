@@ -15,7 +15,7 @@ Then, go to the project folder and start the service:
 This bash script calls docker-compose that buids the dockers (with the libraries from the requirements.txt) and starts them. <br />
 Now the application is running on the localhost and listening on port 8000.
 
-If the user wants to change global variables, the .env file can be modified.
+If the user wants to change global variables, the .env file can be modified. For the use of this project admin username and password are note setted.
 
 To stop the application:
 
@@ -53,7 +53,9 @@ Takes in input two values: <br />
     - date_from: starting datetime in ISO format
     - date-to: ending datetime in ISO format
 
-This api aggregates pet minute the data between date_from and date_to, giving in output some statistics and the last 10 logs from the last aggregation period.
+    The ISO format should be "%Y-%m-%d %H:%M:%SZ"
+
+This api aggregates per minute the data between date_from and date_to, giving in output (in JSON format) statistics, regarding the response times and errors, and the last 10 logs from the last aggregation period.
 
 ## API Security (Api Key)
 For the security of the APIs calls the header of both APIs has the parameter "x-api-key".
