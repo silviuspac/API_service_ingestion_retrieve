@@ -48,7 +48,7 @@ All the fields saved are:
     - payload: payload of the request
     - creation_datetime: datetime in which the request arrived
     - response_time: random integer between 10 and 50, indicates the response time
-    - response_code: response code 200 or 500 (with 10% probability) 
+    - response_code: response code 200 or 500 (with 10% probability)
 
 ## Retrieve
 Takes in input two values: <br />
@@ -62,6 +62,19 @@ This api aggregates per minute the data between date_from and date_to, giving in
 
 ## API Security (Api Key)
 For the security of the APIs calls the header of both APIs has the parameter "x-api-key".
+
+# Technical choices
+The web framework used for the REST API is FastAPI because with Pydantic and Gunicorn helps to achieve incredible speeds and handle high traffic loads. <br />
+The choice for the driver for MongoDB fell on Motor because it gives the possibility to interact with a MongoDB database in an asynchronous contex.<br />
+The library ujson was preferred to json for the serialization and for its better performance.
+
+A class (MongoDatabase) has been created to handle the MongoDB client and the ingestion in the database. The ingestion API calls a MongoDatabase method that put the new entry in a asyncio Queue. The latter is used to populate a buffer in order to insert operations in bulk.<br />
+An asyncio task was created to check for pending entries in the queue and insert them in the database.
+
+The database is initialized in the startup event and an index is created for the creation_datetime field that should speed up queries in the retrieve api.
+
+The retrieve api query pipeline initially performs a match so that the operations to get statistic are performed on a reduced set of entries.
+
 
 # Technologies Used
 * [MongoDB](https://www.mongodb.com/) This is a free open source NOSQL document database with scalability and flexibility. Data are stored in flexible JSON-like documents.
